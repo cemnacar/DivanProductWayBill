@@ -1,16 +1,74 @@
 package kocsistem.divanproductwaybill;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
+
 
 public class MainActivity extends AppCompatActivity {
+
+    Button girisButon;
+    TextView kullaniciAdiText,sifreText;
+    String username="onurhan";
+    String password="123456";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        android.support.v7.app.ActionBar actionbar= getSupportActionBar();
+        actionbar.hide();
+
+        girisButon=(Button)findViewById(R.id.girisBt);
+        kullaniciAdiText=(TextView)findViewById(R.id.kullaniciAdiTxt);
+        sifreText=(TextView)findViewById(R.id.sifreTxt);
+
+        girisButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kullaniciAdiValue=kullaniciAdiText.getText().toString();
+                String sifreValue=sifreText.getText().toString();
+
+                Intent intent = new Intent(MainActivity.this, processList.class);
+                intent.putExtra("kullaniciAdi",kullaniciAdiValue);
+                intent.putExtra("sifre", sifreValue);
+
+                if (kullaniciAdiValue==null || kullaniciAdiValue=="")
+                {
+
+                }
+                else if (sifreValue==null || sifreValue=="")
+                {
+
+                }
+                else if(kullaniciAdiValue==username.toString() && sifreValue==password.toString())
+                {
+
+
+                }
+                else {
+
+                }
+                startActivity(intent);
+            }});
+
+
+
+
     }
 
     @Override
