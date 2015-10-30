@@ -17,6 +17,8 @@ import kocsistem.divanproductwaybill.model.OrderDTO;
 
 public class ProductMovementActivity extends AppCompatActivity {
 
+
+
     public class GetOrders extends AsyncTask<Void,Void,OrderAdapter> {
         @Override
         protected void onPreExecute() {
@@ -31,7 +33,7 @@ public class ProductMovementActivity extends AppCompatActivity {
 
             OrderDTO[] rs = gson.fromJson(result, OrderDTO[].class);
 
-            OrderAdapter adapter = new OrderAdapter(getApplicationContext(), rs);
+            OrderAdapter adapter = new OrderAdapter(getApplicationContext(),rs);
 
             return adapter;
         }
@@ -50,12 +52,13 @@ public class ProductMovementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_movement);
 
-//        GetOrders task = new GetOrders();
-//        task.execute();
 
-        GridView gw = (GridView)findViewById(R.id.gridView);
+        GetOrders task = new GetOrders();
+        task.execute();
 
-        gw.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"1","2"}));
+        //GridView gw = (GridView)findViewById(R.id.gridView);
+
+//        gw.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"1","2"}));
     }
 
     @Override
