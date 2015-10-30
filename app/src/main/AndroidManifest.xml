@@ -28,6 +28,10 @@
             android:name=".ProductMovementActivity"
             android:label="@string/title_activity_product_movement" >
         </activity>
+        <activity
+            android:name=".ProductMovementDetailActivity"
+            android:label="@string/title_activity_product_movement_detail" >
+        </activity>
     </application>
 
 </manifest>

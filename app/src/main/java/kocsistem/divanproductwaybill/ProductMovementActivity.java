@@ -5,14 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import kocsistem.divanproductwaybill.common.Common;
-import kocsistem.divanproductwaybill.common.OrderAdapter;
+import kocsistem.divanproductwaybill.adapter.OrderAdapter;
 import kocsistem.divanproductwaybill.model.OrderDTO;
 
 public class ProductMovementActivity extends AppCompatActivity {
@@ -43,6 +46,14 @@ public class ProductMovementActivity extends AppCompatActivity {
 
             GridView gw = (GridView)findViewById(R.id.gridView);
 
+            gw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(getApplicationContext(), "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+
+                }
+            });
             gw.setAdapter(res);
         }
     }

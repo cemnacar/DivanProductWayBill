@@ -1,4 +1,4 @@
-package kocsistem.divanproductwaybill.common;
+package kocsistem.divanproductwaybill.adapter;
 
 import android.content.Context;
 import android.view.View;

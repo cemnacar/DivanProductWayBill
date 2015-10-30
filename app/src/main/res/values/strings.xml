@@ -6,4 +6,5 @@
     <string name="title_activity_process_list">processList</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_product_movement">ProductMovement</string>
+    <string name="title_activity_product_movement_detail">ProductMovementDetail</string>
 </resources>
