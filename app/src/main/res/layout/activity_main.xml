@@ -51,7 +51,8 @@
         android:width="500dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="81dp" />
+        android:layout_marginBottom="81dp"
+        android:onClick="onclick" />
 
 
 </RelativeLayout>

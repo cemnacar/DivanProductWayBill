@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kocsistem.divanproductwaybill" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -21,6 +23,10 @@
             android:name=".processList"
             android:label="@string/title_activity_process_list"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ProductMovementActivity"
+            android:label="@string/title_activity_product_movement" >
         </activity>
     </application>
 
