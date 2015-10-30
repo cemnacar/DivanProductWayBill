@@ -1,6 +1,8 @@
 package kocsistem.divanproductwaybill.model;
 
-public class OrderDetailDTO
+import java.io.Serializable;
+
+public class OrderDetailDTO implements Serializable
 {
     public String ProductNo;
     public String DocumentNo;

@@ -1,16 +1,26 @@
 package kocsistem.divanproductwaybill;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-public class ProductMovementDetailActivity extends AppCompatActivity {
+import kocsistem.divanproductwaybill.model.OrderDTO;
+import kocsistem.divanproductwaybill.model.OrderDetailDTO;
+
+public class ProductMovementDetailActivity extends Activity {
+
+    OrderDTO order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_movement_detail);
+        order = (OrderDTO)getIntent().getSerializableExtra("Order");
+
+        ((TextView)findViewById(R.id.txt)).setText(order.DocumentNo);
     }
 
     @Override

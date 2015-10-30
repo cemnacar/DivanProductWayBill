@@ -1,8 +1,9 @@
 package kocsistem.divanproductwaybill.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderDTO
+public class OrderDTO implements Serializable
 {
     public String DocumentNo;
     public String Storage;

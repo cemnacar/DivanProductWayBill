@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import kocsistem.divanproductwaybill.common.*;
+import kocsistem.divanproductwaybill.utils.*;
 import kocsistem.divanproductwaybill.model.*;
 
 

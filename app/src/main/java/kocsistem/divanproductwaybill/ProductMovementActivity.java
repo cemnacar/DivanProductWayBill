@@ -1,12 +1,16 @@
 package kocsistem.divanproductwaybill;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,13 +18,17 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.Serializable;
+import java.util.Calendar;
+
 import kocsistem.divanproductwaybill.utils.Common;
 import kocsistem.divanproductwaybill.adapter.OrderAdapter;
 import kocsistem.divanproductwaybill.model.OrderDTO;
 
-public class ProductMovementActivity extends AppCompatActivity {
+public class ProductMovementActivity extends Activity {
 
-
+    OrderAdapter adapter;
+    EditText dateTxt;
 
     public class GetOrders extends AsyncTask<Void,Void,OrderAdapter> {
         @Override
@@ -36,7 +44,7 @@ public class ProductMovementActivity extends AppCompatActivity {
 
             OrderDTO[] rs = gson.fromJson(result, OrderDTO[].class);
 
-            OrderAdapter adapter = new OrderAdapter(getApplicationContext(),rs);
+            adapter = new OrderAdapter(getApplicationContext(),rs);
 
             return adapter;
         }
@@ -50,8 +58,9 @@ public class ProductMovementActivity extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
-
+                    Intent intent = new Intent(ProductMovementActivity.this, ProductMovementDetailActivity.class);
+                    intent.putExtra("Order", (OrderDTO) adapter.getItem(position)); //Your id
+                    startActivity(intent);
                 }
             });
             gw.setAdapter(res);
@@ -62,14 +71,12 @@ public class ProductMovementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_movement);
-
-
+        dateTxt = ((EditText)findViewById(R.id.dateTxt));
+        Calendar c = Calendar.getInstance();
+        dateTxt.setText(c.get(Calendar.DAY_OF_MONTH)+"-"+(c.get(Calendar.MONTH)+(int)1) +"-"+c.get(Calendar.YEAR));
         GetOrders task = new GetOrders();
         task.execute();
 
-        //GridView gw = (GridView)findViewById(R.id.gridView);
-
-//        gw.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"1","2"}));
     }
 
     @Override
@@ -92,5 +99,22 @@ public class ProductMovementActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDateClick(View v){
+
+        String selectedDate = dateTxt.getText().toString();
+        int mYear =  Integer.parseInt(selectedDate.split("-")[2]);
+        int mMonth = Integer.parseInt(selectedDate.split("-")[1])-1;
+        int mDay = Integer.parseInt(selectedDate.split("-")[0]);
+
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        dateTxt.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    }
+                }, mYear, mMonth, mDay);
+        dpd.show();
     }
 }

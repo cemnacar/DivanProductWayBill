@@ -1,6 +1,8 @@
 package kocsistem.divanproductwaybill.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,7 +29,7 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return arr[position];
     }
 
     @Override
@@ -38,6 +40,7 @@ public class OrderAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView = new TextView(ctx);
+        textView.setTextColor(Color.BLACK);
         textView.setText(arr[position].DocumentNo);
         return textView;
     }
