@@ -12,18 +12,15 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
-import kocsistem.divanproductwaybill.utils.Common;
 import kocsistem.divanproductwaybill.adapter.OrderAdapter;
 import kocsistem.divanproductwaybill.model.OrderDTO;
+import kocsistem.divanproductwaybill.utils.Common;
 
 public class ProductMovementActivity extends Activity {
 
