@@ -15,9 +15,10 @@ public class OrderAdapter extends BaseAdapter {
 
     Context ctx;
     OrderDTO[] arr;
-    public OrderAdapter(OrderDTO[] _arr)
+    public OrderAdapter(Context _ctx ,OrderDTO[] _arr)
     {
         arr = _arr;
+        ctx = _ctx;
     }
     @Override
     public int getCount() {
