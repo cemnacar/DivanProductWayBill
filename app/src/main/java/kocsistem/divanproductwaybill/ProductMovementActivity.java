@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import kocsistem.divanproductwaybill.common.Common;
+import kocsistem.divanproductwaybill.utils.Common;
 import kocsistem.divanproductwaybill.adapter.OrderAdapter;
 import kocsistem.divanproductwaybill.model.OrderDTO;
 
