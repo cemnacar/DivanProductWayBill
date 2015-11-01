@@ -1,14 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="kocsistem.divanproductwaybill.ProductMovementDetailActivity">
+    tools:context="kocsistem.divanproductwaybill.ProductMovementSummaryActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt" />
 
     <TableLayout
         android:layout_width="1080px"
@@ -22,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView android:text="Malzeme Tanımı"
-                android:layout_width="400px"
+                android:layout_width="300px"
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:textSize="25dp"
                 android:textStyle="bold"
                 />
             <TextView android:text="Miktar"
-                android:layout_width="400px"
+                android:layout_width="300px"
                 android:layout_column="2"
                 android:layout_weight="1"
                 android:textSize="25dp"
@@ -37,6 +35,14 @@
                 >
             </TextView>
             <TextView android:text="Birim"
+                android:layout_width="200px"
+                android:layout_column="3"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                >
+            </TextView>
+            <TextView android:text="Fark"
                 android:layout_width="250px"
                 android:layout_column="3"
                 android:layout_weight="1"
@@ -47,7 +53,7 @@
         </TableRow>
 
         <ScrollView android:layout_height="600px">
-            <TableLayout android:id="@+id/order_detail_list"
+            <TableLayout android:id="@+id/order_summary_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
@@ -60,9 +66,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Devam"
-        android:id="@+id/pmdBtn"
+        android:id="@+id/pmsBtn"
         android:layout_column="1"
-        android:onClick="onPmdBtnClick"
+        android:onClick="onPmsBtnClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

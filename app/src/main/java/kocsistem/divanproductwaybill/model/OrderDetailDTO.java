@@ -9,6 +9,16 @@ public class OrderDetailDTO implements Serializable
     public String ProductName;
     public double Quantity;
     public String Unit;
+    public double BarcodeQuantity;
+
+    public void setBarcodeQuantity(double barcodeQuantity) {
+        BarcodeQuantity = barcodeQuantity;
+    }
+
+    public double getBarcodeQuantity() {
+
+        return BarcodeQuantity;
+    }
 
     public void setProductNo(String productNo) {
         ProductNo = productNo;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="order_no" type="id">order_no</item>
+    <item name="storage" type="id">storage</item>
+    <item name="detail_btn" type="id">detail_btn</item>
+    <item name="order_row" type="id">order_row</item>
+</resources>

@@ -2,16 +2,22 @@ package kocsistem.divanproductwaybill;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.GridView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,36 +26,90 @@ import java.util.Calendar;
 
 import kocsistem.divanproductwaybill.adapter.OrderAdapter;
 import kocsistem.divanproductwaybill.model.OrderDTO;
+import kocsistem.divanproductwaybill.model.OrderDetailDTO;
 import kocsistem.divanproductwaybill.utils.Common;
 
 public class ProductMovementActivity extends Activity {
 
     OrderAdapter adapter;
     EditText dateTxt;
+    OrderDTO[] rs;
 
-    public class GetOrders extends AsyncTask<Void,Void,OrderAdapter> {
+    public class GetOrders extends AsyncTask<Void, Void, OrderDTO[]> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected OrderAdapter doInBackground(Void... params) {
+        protected OrderDTO[] doInBackground(Void... params) {
             String result = Common.getJSON("https://barkod.divan.com.tr/api/Product/ListOrders", 6000);
 
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-            OrderDTO[] rs = gson.fromJson(result, OrderDTO[].class);
+            rs = gson.fromJson(result, OrderDTO[].class);
 
-            adapter = new OrderAdapter(getApplicationContext(),rs);
+            return rs;
 
-            return adapter;
+            //adapter = new OrderAdapter(getApplicationContext(),rs);
+
+            //return adapter;
         }
 
         @Override
-        protected void onPostExecute(final OrderAdapter res) {
+        protected void onPostExecute(final OrderDTO[] res) {
 
-            GridView gw = (GridView)findViewById(R.id.gridView);
+            TableLayout orderLayout = (TableLayout)findViewById(R.id.order_list);
+
+            final Context context = getApplicationContext();
+
+            TableRow tr;
+            TextView orderCol;
+            TextView storageCol;
+            Button btn;
+
+            for (final OrderDTO order:rs) {
+                tr = new TableRow(context);
+                orderCol = new TextView(context);
+                orderCol.setText(order.DocumentNo);
+                orderCol.setTextColor(Color.BLACK);
+                orderCol.setWidth(400);
+                orderCol.setLayoutParams(new TableRow.LayoutParams(0));
+                //orderCol.setBackground(getDrawable(R.drawable.border));
+
+                tr.addView(orderCol);
+
+                storageCol = new TextView(context);
+                storageCol.setText(order.Storage);
+                storageCol.setTextColor(Color.BLACK);
+                storageCol.setWidth(400);
+                storageCol.setLayoutParams(new TableRow.LayoutParams(1));
+                //storageCol.setBackground(getDrawable(R.drawable.border));
+
+                tr.addView(storageCol);
+
+                btn = new Button(context);
+                btn.setText("Sec");
+                btn.setWidth(280);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ProductMovementActivity.this, ProductMovementDetailActivity.class);
+                        intent.putExtra("Order", order); //Your id
+                        startActivity(intent);
+                    }
+                });
+                btn.setLayoutParams(new TableRow.LayoutParams(2));
+                //btn.setBackground(getDrawable(R.drawable.border));
+
+                tr.addView(btn);
+
+                orderLayout.addView(tr);
+
+            }
+
+            }
+            /*GridView gw = (GridView)findViewById(R.id.gridView);
 
             gw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -60,8 +120,8 @@ public class ProductMovementActivity extends Activity {
                     startActivity(intent);
                 }
             });
-            gw.setAdapter(res);
-        }
+            gw.setAdapter(res);*/
+
     }
 
     @Override

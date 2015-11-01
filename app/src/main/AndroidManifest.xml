@@ -20,17 +20,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".processList"
-            android:label="@string/title_activity_process_list"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".ProductMovementActivity"
             android:label="@string/title_activity_product_movement" >
         </activity>
         <activity
             android:name=".ProductMovementDetailActivity"
             android:label="@string/title_activity_product_movement_detail" >
+        </activity>
+        <activity android:name=".ProductMovementBarcodeActivity" >
+        </activity>
+        <activity android:name=".ProductMovementSummaryActivity" >
         </activity>
     </application>
 
