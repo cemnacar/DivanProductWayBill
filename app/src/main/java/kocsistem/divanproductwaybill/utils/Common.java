@@ -1,12 +1,16 @@
 package kocsistem.divanproductwaybill.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Common{
-    public static String getJSON(String url, int timeout) {
+    public static String getJSON(String url, String params ,int timeout) {
         HttpURLConnection c = null;
 
         URL u = null;
@@ -21,6 +25,16 @@ public class Common{
             c.setConnectTimeout(timeout);
             c.setReadTimeout(timeout);
             c.connect();
+
+            if(params != null && !params.isEmpty()){
+                OutputStream os = c.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(params);
+                writer.flush();
+                writer.close();
+            }
+
             int status = c.getResponseCode();
 
             switch (status) {

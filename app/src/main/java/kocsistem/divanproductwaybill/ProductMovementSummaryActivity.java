@@ -11,8 +11,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import kocsistem.divanproductwaybill.model.OrderDTO;
 import kocsistem.divanproductwaybill.model.OrderDetailDTO;
+import kocsistem.divanproductwaybill.utils.Common;
 
 public class ProductMovementSummaryActivity extends Activity {
 
@@ -100,6 +106,31 @@ public class ProductMovementSummaryActivity extends Activity {
     }
 
     public void onPmsBtnClick(View v){
+
+        OrderDTO barcodeOrder = new OrderDTO();
+        barcodeOrder.DocumentNo = order.DocumentNo;
+        barcodeOrder.OrderDate = order.OrderDate;
+        barcodeOrder.Storage = order.Storage;
+
+        ArrayList<OrderDetailDTO> items = new ArrayList<OrderDetailDTO>();
+
+        for (OrderDetailDTO detail: order.Items) {
+            if(detail.BarcodeQuantity > 0){
+                OrderDetailDTO item = new OrderDetailDTO();
+                item.Quantity = detail.BarcodeQuantity;
+                item.ProductNo = detail.ProductNo;
+                item.DocumentNo = detail.DocumentNo;
+                item.ProductName = detail.ProductName;
+                item.Unit = detail.Unit;
+
+                items.add(item);
+            }
+        }
+
+        barcodeOrder.Items = items;
+
+        String response = Common.getJSON("https://barkod.divan.com.tr/api/Product/SendOrders",new Gson().toJson(barcodeOrder),6000);
+
         Toast toast = new Toast(this);
         toast.makeText(this,"İşlem Başarılı",Toast.LENGTH_LONG);
     }

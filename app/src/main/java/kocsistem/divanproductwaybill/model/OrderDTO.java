@@ -1,6 +1,7 @@
 package kocsistem.divanproductwaybill.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderDTO implements Serializable
@@ -8,7 +9,7 @@ public class OrderDTO implements Serializable
     public String DocumentNo;
     public String Storage;
     public Date OrderDate;
-    public OrderDetailDTO[] Items;
+    public ArrayList<OrderDetailDTO> Items;
 
     public void setDocumentNo(String documentNo) {
         DocumentNo = documentNo;
@@ -22,7 +23,7 @@ public class OrderDTO implements Serializable
         OrderDate = orderDate;
     }
 
-    public void setItems(OrderDetailDTO[] items) {
+    public void setItems(ArrayList<OrderDetailDTO> items) {
         Items = items;
     }
 
@@ -39,7 +40,7 @@ public class OrderDTO implements Serializable
         return OrderDate;
     }
 
-    public OrderDetailDTO[] getItems() {
+    public ArrayList<OrderDetailDTO> getItems() {
         return Items;
     }
 }

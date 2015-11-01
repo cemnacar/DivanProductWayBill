@@ -43,7 +43,7 @@ public class ProductMovementActivity extends Activity {
 
         @Override
         protected OrderDTO[] doInBackground(Void... params) {
-            String result = Common.getJSON("https://barkod.divan.com.tr/api/Product/ListOrders", 6000);
+            String result = Common.getJSON("https://barkod.divan.com.tr/api/Product/ListOrders",null, 6000);
 
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
