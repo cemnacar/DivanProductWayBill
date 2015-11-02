@@ -4,23 +4,23 @@ package kocsistem.divanproductwaybill.model;
  * Created by 02482957 on 2.11.2015.
  */
 public class MessageDTO {
-    public void setTipField(String tipField) {
-        this.tipField = tipField;
+    public void setTip(String tip) {
+        Tip = tip;
     }
 
-    public void setMesajField(String mesajField) {
-        this.mesajField = mesajField;
+    public void setMesaj(String mesaj) {
+        Mesaj = mesaj;
     }
 
-    public String getMesajField() {
+    public String getTip() {
 
-        return mesajField;
+        return Tip;
     }
 
-    public String getTipField() {
-        return tipField;
+    public String getMesaj() {
+        return Mesaj;
     }
 
-    public String tipField;
-    public String mesajField;
+    public String Tip;
+    public String Mesaj;
 }
