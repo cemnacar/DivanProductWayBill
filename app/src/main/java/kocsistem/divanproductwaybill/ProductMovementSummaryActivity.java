@@ -129,11 +129,10 @@ public class ProductMovementSummaryActivity extends Activity {
 
         @Override
         protected void onPostExecute(final MessageDTO[] res) {
-
             for (MessageDTO message:
                  res) {
                 Toast toast = new Toast(getApplicationContext());
-                toast.makeText(getApplicationContext(),message.Mesaj,Toast.LENGTH_LONG).show();
+                toast.makeText(getApplicationContext(), message.Mesaj, Toast.LENGTH_LONG).show();
             }
 
         }
