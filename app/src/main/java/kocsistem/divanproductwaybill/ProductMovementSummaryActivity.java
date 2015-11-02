@@ -156,6 +156,9 @@ public class ProductMovementSummaryActivity extends Activity {
     }
 
     public void onPmsBtnClick(View v){
+        SendOrders task = new SendOrders();
+        task.execute();
+
         Toast toast = new Toast(this);
         toast.makeText(this,"İşlem Başarılı",Toast.LENGTH_LONG);
     }
