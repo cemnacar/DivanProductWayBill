@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import kocsistem.divanproductwaybill.model.MessageDTO;
 import kocsistem.divanproductwaybill.model.OrderDTO;
 import kocsistem.divanproductwaybill.model.OrderDetailDTO;
 import kocsistem.divanproductwaybill.utils.Common;
@@ -109,39 +110,17 @@ public class ProductMovementSummaryActivity extends Activity {
 
     }
 
-    public class SendOrders extends AsyncTask<Void, Void, String> {
+    public class SendOrders extends AsyncTask<Void, Void, MessageDTO> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected String doInBackground(Void... params) {
-            OrderDTO barcodeOrder = new OrderDTO();
-            barcodeOrder.DocumentNo = order.DocumentNo;
-            barcodeOrder.OrderDate = order.OrderDate;
-            barcodeOrder.Storage = order.Storage;
+        protected MessageDTO doInBackground(Void... params) {
+            String response = Common.postJSON("https://barkod.divan.com.tr/api/Product/SendOrders",  new Gson().toJson(order), 6000);
 
-            ArrayList<OrderDetailDTO> items = new ArrayList<OrderDetailDTO>();
-
-            for (OrderDetailDTO detail: order.Items) {
-                if(detail.BarcodeQuantity > 0){
-                    OrderDetailDTO item = new OrderDetailDTO();
-                    item.Quantity = detail.BarcodeQuantity;
-                    item.ProductNo = detail.ProductNo;
-                    item.DocumentNo = detail.DocumentNo;
-                    item.ProductName = detail.ProductName;
-                    item.Unit = detail.Unit;
-
-                    items.add(item);
-                }
-            }
-
-            barcodeOrder.Items = items;
-
-            String response = Common.postJSON("https://barkod.divan.com.tr/api/Product/SendOrders", new Gson().toJson(barcodeOrder), 6000);
-
-            return response;
+            return new Gson().fromJson(response, MessageDTO.class);
 
             //adapter = new OrderAdapter(getApplicationContext(),rs);
 
@@ -149,9 +128,10 @@ public class ProductMovementSummaryActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(final String res) {
+        protected void onPostExecute(final MessageDTO res) {
 
-
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(getApplicationContext(),res.Message,Toast.LENGTH_LONG);
         }
     }
 
@@ -159,7 +139,6 @@ public class ProductMovementSummaryActivity extends Activity {
         SendOrders task = new SendOrders();
         task.execute();
 
-        Toast toast = new Toast(this);
-        toast.makeText(this,"İşlem Başarılı",Toast.LENGTH_LONG);
+
     }
 }

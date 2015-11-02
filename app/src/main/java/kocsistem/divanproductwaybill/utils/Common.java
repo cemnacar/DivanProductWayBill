@@ -64,14 +64,14 @@ public class Common{
 
             c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("POST");
-            c.setRequestProperty("Content-length", "");
+            c.setRequestProperty("Accept", "application/json");
+            c.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             c.setUseCaches(false);
             c.setAllowUserInteraction(false);
             c.setConnectTimeout(timeout);
-            c.setDoInput (true);
-            c.setDoOutput (true);
+            c.setDoInput(true);
+            c.setDoOutput(true);
             c.setReadTimeout(timeout);
-            c.connect();
 
             if(params != null && !params.isEmpty()){
                 OutputStream os = c.getOutputStream();
@@ -81,6 +81,9 @@ public class Common{
                 writer.flush();
                 writer.close();
             }
+
+            c.connect();
+
 
             int status = c.getResponseCode();
 
