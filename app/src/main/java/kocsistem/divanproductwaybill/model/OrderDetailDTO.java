@@ -10,6 +10,16 @@ public class OrderDetailDTO implements Serializable
     public double Quantity;
     public String Unit;
     public double BarcodeQuantity;
+    public String Ebelp;
+
+    public void setEbelp(String ebelp) {
+        Ebelp = ebelp;
+    }
+
+    public String getEbelp() {
+
+        return Ebelp;
+    }
 
     public void setBarcodeQuantity(double barcodeQuantity) {
         BarcodeQuantity = barcodeQuantity;
