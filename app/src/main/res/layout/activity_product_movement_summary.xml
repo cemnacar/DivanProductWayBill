@@ -65,7 +65,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Devam"
+        android:text="Bitir"
         android:id="@+id/pmsBtn"
         android:layout_column="1"
         android:onClick="onPmsBtnClick"
