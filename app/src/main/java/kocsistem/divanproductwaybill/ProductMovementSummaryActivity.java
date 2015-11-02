@@ -2,16 +2,20 @@ package kocsistem.divanproductwaybill;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,32 +109,53 @@ public class ProductMovementSummaryActivity extends Activity {
 
     }
 
-    public void onPmsBtnClick(View v){
-
-        OrderDTO barcodeOrder = new OrderDTO();
-        barcodeOrder.DocumentNo = order.DocumentNo;
-        barcodeOrder.OrderDate = order.OrderDate;
-        barcodeOrder.Storage = order.Storage;
-
-        ArrayList<OrderDetailDTO> items = new ArrayList<OrderDetailDTO>();
-
-        for (OrderDetailDTO detail: order.Items) {
-            if(detail.BarcodeQuantity > 0){
-                OrderDetailDTO item = new OrderDetailDTO();
-                item.Quantity = detail.BarcodeQuantity;
-                item.ProductNo = detail.ProductNo;
-                item.DocumentNo = detail.DocumentNo;
-                item.ProductName = detail.ProductName;
-                item.Unit = detail.Unit;
-
-                items.add(item);
-            }
+    public class SendOrders extends AsyncTask<Void, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
-        barcodeOrder.Items = items;
+        @Override
+        protected String doInBackground(Void... params) {
+            OrderDTO barcodeOrder = new OrderDTO();
+            barcodeOrder.DocumentNo = order.DocumentNo;
+            barcodeOrder.OrderDate = order.OrderDate;
+            barcodeOrder.Storage = order.Storage;
 
-        String response = Common.getJSON("https://barkod.divan.com.tr/api/Product/SendOrders",new Gson().toJson(barcodeOrder),6000);
+            ArrayList<OrderDetailDTO> items = new ArrayList<OrderDetailDTO>();
 
+            for (OrderDetailDTO detail: order.Items) {
+                if(detail.BarcodeQuantity > 0){
+                    OrderDetailDTO item = new OrderDetailDTO();
+                    item.Quantity = detail.BarcodeQuantity;
+                    item.ProductNo = detail.ProductNo;
+                    item.DocumentNo = detail.DocumentNo;
+                    item.ProductName = detail.ProductName;
+                    item.Unit = detail.Unit;
+
+                    items.add(item);
+                }
+            }
+
+            barcodeOrder.Items = items;
+
+            String response = Common.postJSON("https://barkod.divan.com.tr/api/Product/SendOrders", new Gson().toJson(barcodeOrder), 6000);
+
+            return response;
+
+            //adapter = new OrderAdapter(getApplicationContext(),rs);
+
+            //return adapter;
+        }
+
+        @Override
+        protected void onPostExecute(final String res) {
+
+
+        }
+    }
+
+    public void onPmsBtnClick(View v){
         Toast toast = new Toast(this);
         toast.makeText(this,"İşlem Başarılı",Toast.LENGTH_LONG);
     }
