@@ -110,17 +110,17 @@ public class ProductMovementSummaryActivity extends Activity {
 
     }
 
-    public class SendOrders extends AsyncTask<Void, Void, MessageDTO> {
+    public class SendOrders extends AsyncTask<Void, Void, MessageDTO[]> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected MessageDTO doInBackground(Void... params) {
+        protected MessageDTO[] doInBackground(Void... params) {
             String response = Common.postJSON("https://barkod.divan.com.tr/api/Product/SendOrders",  new Gson().toJson(order), 6000);
 
-            return new Gson().fromJson(response, MessageDTO.class);
+            return new Gson().fromJson(response, MessageDTO[].class);
 
             //adapter = new OrderAdapter(getApplicationContext(),rs);
 
@@ -128,10 +128,14 @@ public class ProductMovementSummaryActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(final MessageDTO res) {
+        protected void onPostExecute(final MessageDTO[] res) {
 
-            Toast toast = new Toast(getApplicationContext());
-            toast.makeText(getApplicationContext(),res.Mesaj,Toast.LENGTH_LONG).show();
+            for (MessageDTO message:
+                 res) {
+                Toast toast = new Toast(getApplicationContext());
+                toast.makeText(getApplicationContext(),message.Mesaj,Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 
