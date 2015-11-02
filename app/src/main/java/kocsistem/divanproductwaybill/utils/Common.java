@@ -64,10 +64,12 @@ public class Common{
 
             c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("POST");
-            c.setRequestProperty("Content-length", "0");
+            c.setRequestProperty("Content-length", "");
             c.setUseCaches(false);
             c.setAllowUserInteraction(false);
             c.setConnectTimeout(timeout);
+            c.setDoInput (true);
+            c.setDoOutput (true);
             c.setReadTimeout(timeout);
             c.connect();
 
