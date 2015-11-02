@@ -131,7 +131,7 @@ public class ProductMovementSummaryActivity extends Activity {
         protected void onPostExecute(final MessageDTO res) {
 
             Toast toast = new Toast(getApplicationContext());
-            toast.makeText(getApplicationContext(),res.Message,Toast.LENGTH_LONG);
+            toast.makeText(getApplicationContext(),res.Message,Toast.LENGTH_LONG).show();
         }
     }
 
